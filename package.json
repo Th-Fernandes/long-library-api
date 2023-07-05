@@ -1,0 +1,16 @@
+{
+  "name": "long-library-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/server.ts",
+  "scripts": {
+    "dev": "tsx watch ./src/server.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.3.3",
+    "tsx": "^3.12.7",
+    "typescript": "^5.1.6"
+  }
+}
