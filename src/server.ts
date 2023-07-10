@@ -1,31 +1,27 @@
-// import http from 'http';
-
-// const port = 8080;
-
-// const routes = {
-//   '/': 'this still is a webpage :/',
-//   '/books': 'there is a lot of books here'
-// }
-
-// const server = http.createServer((req, res) => {
-//   res.writeHead(200, {
-//     'Content-Type': 'text/plain'
-//   })
-
-//   res.end(routes[req.url])
-// })
-
-// server.listen(port, () => console.log(`Listening on: http://localhost:${port}`))
-
 import express from 'express';
+import { books } from './books';
+import { Book } from './@types/book';
+import { randomUUID } from 'crypto';
 
 const app = express();
 const port = process.env.PORT || 3333; 
+app.use(express.json())
 
 app.get('/', (req, res) => {
   res
     .status(200)
-    .json({ status: 200 })
+    .json(books)
+})
+
+app.post('/', (req, res) => {
+  const { title, author }: Partial<Book> = req.body;
+
+  if(title && author) {
+    books.push({id: randomUUID(),title, author})
+    return res.status(200).json({})
+  } 
+  return res.status(400).json({status: 400, message: 'invalid req params'})
+
 })
 
 app.listen(port, () => console.log(`API entry: http://localhost:${port}`))
